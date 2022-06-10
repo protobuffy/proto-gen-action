@@ -1,0 +1,13 @@
+name: 'ProtoBuffy'
+description: 'Build Protobuf by proto version'
+inputs:
+  options:
+    description: 'test'
+    required: false
+    default: 'help'
+
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+  args:
+    - ${{ inputs.options }}
