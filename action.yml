@@ -9,4 +9,5 @@ runs:
   using: 'docker'
   image: 'Dockerfile'
   args:
-    - ${{ inputs.options }}
+    - ${{ inputs.origin }}
+      ${{ inputs.destination }}
