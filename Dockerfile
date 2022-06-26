@@ -5,7 +5,8 @@ COPY --from=golang:1.18-alpine /usr/local/go/ /usr/local/go/
 
 ENV PATH="/usr/local/go/bin:${PATH}"
 
-RUN apk add git; \
+RUN apk update; \
+  apk add git openssh; \
   # need to versoin lock this
   apk add "protobuf~=3.18.1-r1";
 
