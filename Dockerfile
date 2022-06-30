@@ -10,9 +10,7 @@ RUN apk update; \
   # need to versoin lock this
   apk add "protobuf~=3.18.1-r1";
 
-# version set later
-RUN  go install google.golang.org/protobuf/cmd/protoc-gen-go@latest; \
-  go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@latest;
+RUN go get -u github.com/golang/protobuf/protoc-gen-go
 
 # Copies your code file from your action repository to the filesystem path `/` of the container
 COPY entrypoint.sh /entrypoint.sh
