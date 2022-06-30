@@ -1,7 +1,7 @@
 # Container image that runs your code
 FROM alpine:3.15
 
-COPY --from=golang:1.18-alpine /usr/local/go/ /usr/local/go/
+COPY --from=golang:1.16.7-alpine /usr/local/go/ /usr/local/go/
 
 ENV PATH="/usr/local/go/bin:${PATH}"
 ENV GOPATH="/opt/go/"
