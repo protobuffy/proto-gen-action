@@ -15,8 +15,8 @@ if [ -z "$access_token" ]; then
     git clone https://github.com/$origin_repo.git origin
     git clone https://github.com/$destination_repo.git destination
 else
-    git clone https://$access-token@github.com/$origin_repo.git origin
-    git clone https://$access-token@github.com/$destination_repo.git destination
+    git clone https://$access_token@github.com/$origin_repo.git origin
+    git clone https://$access_token@github.com/$destination_repo.git destination
 fi
 
 # Generate proto
