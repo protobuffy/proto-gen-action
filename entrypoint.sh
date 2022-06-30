@@ -1,5 +1,8 @@
 #!/bin/sh
 
+git config --global user.email "mrBot@myemail.com"
+git config --global user.name "Mr Bot"
+
 origin_repo=$1
 destination_repo=$2
 access_token=$3
