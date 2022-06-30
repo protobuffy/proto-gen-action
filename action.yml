@@ -7,10 +7,13 @@ inputs:
   destination:
     description: 'protobuf destination'
     required: true
-
+  access-token:
+    description: 'PAT with repository scope (https://github.com/settings/tokens)'
+    required: false
 runs:
   using: 'docker'
   image: 'Dockerfile'
   args:
     - ${{ inputs.origin }}
     - ${{ inputs.destination }}
+    - ${{ inputs.access-token }}

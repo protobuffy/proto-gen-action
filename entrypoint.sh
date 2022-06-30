@@ -2,6 +2,7 @@
 
 origin_repo=$1
 destination_repo=$2
+access_token=$3
 
 echo "Fetching from latest origin $origin_repo"
 echo "Fetching from latest destination $destination_repo"
@@ -10,8 +11,13 @@ echo "Fetching from latest destination $destination_repo"
 rm -rf ./origin
 rm -rf ./destination
 
-git clone $origin_repo origin
-git clone $destination_repo destination
+if [ -z "$access_token" ]; then
+    git clone https://github.com/$origin_repo.git origin
+    git clone https://github.com/$destination_repo.git destination
+else
+    git clone https://$access-token@github.com/$origin_repo.git origin
+    git clone https://$access-token@github.com/$destination_repo.git destination
+fi
 
 # Generate proto
 mkdir ./destination/go
