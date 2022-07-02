@@ -31,6 +31,8 @@ if [ ! -z "$branch_target" ]; then
   cd ../
 fi
 
+echo "Generate Proto"
+
 # Generate proto
 protoc \
   --proto_path=./origin \
@@ -39,19 +41,18 @@ protoc \
   ./origin/*.proto \
   ./origin/**/*.proto
 
-# Push genereted proto to destination
-echo "Pushing to destination $2"
 cd origin
 commit_hash=`git rev-parse HEAD`
 cd ../destination
 
+echo "Commiting $commit_hash"
 git add .
 git commit -m "$commit_hash"
 
 if [ ! -z "$branch_target" ]; then
+  echo "Pushing to $branch_taget branch"
   git push origin $branch_target
 else
+  echo "Pushing to default branch"
   git push
 fi
-
-# version/tag generator
