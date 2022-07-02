@@ -10,10 +10,14 @@ inputs:
   access-token:
     description: 'PAT with repository scope (https://github.com/settings/tokens)'
     required: false
+  branch-target:
+    description: 'pass in branch target to enable build to branches'
+    required: false
 runs:
   using: 'docker'
   image: 'Dockerfile'
   args:
     - ${{ inputs.origin }}
     - ${{ inputs.destination }}
+    - ${{ inputs.branch-target }}
     - ${{ inputs.access-token }}
