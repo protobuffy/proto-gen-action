@@ -5,8 +5,8 @@ git config --global user.name "Mr Bot"
 
 origin_repo=$1
 destination_repo=$2
-access_token=$3
-branch_target=$4
+branch_target=$3
+access_token=$4
 
 echo "Fetching from latest origin $origin_repo"
 echo "Fetching from latest destination $destination_repo"
