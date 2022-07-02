@@ -25,7 +25,7 @@ mkdir ./destination/go
 if [ ! -z "$branch_target" ]; then
   echo "Checkout branch $branch_target"
   cd origin
-  git switch -C $branch_target
+  git switch $branch_target
   cd ../destination
   git switch -C $branch_target
   cd ../
@@ -50,7 +50,7 @@ git add .
 git commit -m "$commit_hash"
 
 if [ ! -z "$branch_target" ]; then
-  echo "Pushing to $branch_taget branch"
+  echo "Pushing to $branch_target branch"
   git push origin $branch_target
 else
   echo "Pushing to default branch"
