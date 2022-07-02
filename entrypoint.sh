@@ -22,7 +22,7 @@ fi
 # Generate proto
 mkdir ./destination/go
 
-if [! -z "$branch_target" ]; then
+if [ ! -z "$branch_target" ]; then
   echo "Checkout branch $branch_target"
   git switch -C $branch_target
 fi
@@ -43,7 +43,7 @@ cd ../destination
 git add .
 git commit -m "$commit_hash"
 
-if [! -z "$branch_target" ]; then
+if [ ! -z "$branch_target" ]; then
   git push origin $branch_target
 else
   git push
