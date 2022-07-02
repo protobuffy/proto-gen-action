@@ -28,7 +28,7 @@ if [ ! -z "$branch_target" ]; then
   git switch -C $branch_target
   cd ../destination
   git switch -C $branch_target
-  cd
+  cd ../
 fi
 
 # Generate proto
