@@ -11,21 +11,28 @@ access_token=$4
 echo "Fetching from latest origin $origin_repo"
 echo "Fetching from latest destination $destination_repo"
 
-# clean up
-rm -rf ./origin
-rm -rf ./destination
-
 if [ -z "$access_token" ]; then
-    git clone https://github.com/$origin_repo.git origin
-    git clone https://github.com/$destination_repo.git destination
+  git clone https://github.com/$origin_repo.git origin
+  git clone https://github.com/$destination_repo.git destination
 else
-    git clone https://$access_token@github.com/$origin_repo.git origin
-    git clone https://$access_token@github.com/$destination_repo.git destination
+  git clone https://$access_token@github.com/$origin_repo.git origin
+  git clone https://$access_token@github.com/$destination_repo.git destination
 fi
 
 # Generate proto
 mkdir ./destination/go
-protoc --proto_path=./origin  --go_out=./destination/go/ --go_opt=paths=source_relative ./origin/*.proto ./origin/**/*.proto
+
+if [! -z "$branch_target" ]; then
+  echo "Checkout branch $branch_target"
+  git switch -C $branch_target
+fi
+
+protoc \
+  --proto_path=./origin \
+  --go_out=./destination/go/ \
+  --go_opt=paths=source_relative \
+  ./origin/*.proto \
+  ./origin/**/*.proto
 
 # Push genereted proto to destination
 echo "Pushing to destination $2"
@@ -35,6 +42,11 @@ cd ../destination
 
 git add .
 git commit -m "$commit_hash"
-git push
+
+if [! -z "$branch_target" ]; then
+  git push origin $branch_target
+else
+  git push
+fi
 
 # version/tag generator
