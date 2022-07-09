@@ -28,7 +28,7 @@ if [ ! -z "$branch_target" ]; then
   git switch $branch_target
   cd ../destination
   git fetch origin $branch_target
-  exists=`git rev-parse --verify --quiet $branch_target`
+  exists=`git rev-parse --verify --quiet origin/$branch_target`
   if [ -n "$exists" ]; then
     echo "Switching into $branch_target"
     git switch $branch_target
