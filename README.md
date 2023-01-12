@@ -21,7 +21,7 @@ jobs:
           origin: 'protobuf repo'
           destination: 'compiled code repo destination'
           branch-target: ${{ steps.vars.outputs.branch_target }}
-          access-token: 'access-token for private github action.'
+          access-token: 'access-token for private github repo.'
 ```
 
 # License
