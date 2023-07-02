@@ -46,7 +46,6 @@ protoc \
   --proto_path=./origin \
   --go_out=./destination/go/ \
   --go_opt=paths=source_relative \
-  ./origin/*.proto \
   ./origin/**/*.proto
 
 cd origin
