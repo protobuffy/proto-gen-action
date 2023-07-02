@@ -23,7 +23,7 @@ fi
 git clone git@github.com:bufbuild/protoc-gen-validate.git
 # installs PGV into $GOPATH/bin
 cd protoc-gen-validate && make build;
-ln -l validate ~/origin/validate
+ln -s validate ~/origin/validate
 cd ../
 mkdir -p ./destination/go
 
