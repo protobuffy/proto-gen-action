@@ -12,21 +12,27 @@ echo "Fetching from latest origin $origin_repo"
 echo "Fetching from latest destination $destination_repo"
 
 if [ -z "$access_token" ]; then
-  git clone https://github.com/$origin_repo.git origin
-  git clone https://github.com/$destination_repo.git destination
+  git clone https://github.com/$origin_repo.git ~/origin
+  mkdir -p ~/origin/validate
+  git clone https://github.com/$destination_repo.git ~/destination
 else
-  git clone https://$access_token@github.com/$origin_repo.git origin
-  git clone https://$access_token@github.com/$destination_repo.git destination
+  git clone https://$access_token@github.com/$origin_repo.git ~/origin
+  git clone https://$access_token@github.com/$destination_repo.git ~/destination
 fi
-
-mkdir -p ./destination/go
+# Enable option build later
+git clone https://github.com:bufbuild/protoc-gen-validate.git ~/protoc-gen-validate
+# installs PGV into $GOPATH/bin
+cd ~/protoc-gen-validate && make build;
+ln -s validate ~/origin/validate
+cd ../
+mkdir -p ~/destination/go
 
 # Switch branch if branch_target is available
 if [ ! -z "$branch_target" ]; then
   echo "Checkout branch $branch_target"
   cd origin
   git checkout $branch_target
-  cd ../destination
+  cd ~/destination
   git fetch origin $branch_target
   exists=`git rev-parse --verify --quiet origin/$branch_target`
   if [ -n "$exists" ]; then
@@ -36,7 +42,6 @@ if [ ! -z "$branch_target" ]; then
     echo "Creating branch $branch_target"
     git branch -c $branch_target
   fi
-  cd ../
 fi
 
 echo "Generate Proto"
@@ -46,11 +51,12 @@ protoc \
   --proto_path=./origin \
   --go_out=./destination/go/ \
   --go_opt=paths=source_relative \
-  ./origin/**/*.proto
+  --validate_out="lang=go:../generated" \
+  ~/origin/**/*.proto
 
-cd origin
+cd ~/origin
 commit_hash=`git rev-parse HEAD`
-cd ../destination
+cd ~/destination
 
 echo "Commiting $commit_hash"
 git add .
