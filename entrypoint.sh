@@ -48,8 +48,8 @@ echo "Generate Proto"
 
 # Generate proto
 protoc \
-  --proto_path=./origin \
-  --go_out=./destination/go/ \
+  --proto_path=~/origin \
+  --go_out=~/destination/go/ \
   --go_opt=paths=source_relative \
   --validate_out="lang=go:../generated" \
   ~/origin/**/*.proto
