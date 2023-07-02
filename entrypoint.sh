@@ -25,16 +25,16 @@ mkdir -p ./destination/go
 if [ ! -z "$branch_target" ]; then
   echo "Checkout branch $branch_target"
   cd origin
-  git switch $branch_target
+  git checkout $branch_target
   cd ../destination
   git fetch origin $branch_target
   exists=`git rev-parse --verify --quiet origin/$branch_target`
   if [ -n "$exists" ]; then
     echo "Switching into $branch_target"
-    git switch $branch_target
+    git checkout $branch_target
   else
     echo "Creating branch $branch_target"
-    git switch -c $branch_target
+    git branch -c $branch_target
   fi
   cd ../
 fi
