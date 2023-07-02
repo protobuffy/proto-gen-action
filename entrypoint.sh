@@ -2,10 +2,6 @@
 
 git config --global user.email "mrBot@myemail.com"
 git config --global user.name "Mr Bot"
-# Enable option build later
-git clone git@github.com:bufbuild/protoc-gen-validate.git; \
-# installs PGV into $GOPATH/bin
-cd protoc-gen-validate && make build;
 
 origin_repo=$1
 destination_repo=$2
@@ -17,12 +13,18 @@ echo "Fetching from latest destination $destination_repo"
 
 if [ -z "$access_token" ]; then
   git clone https://github.com/$origin_repo.git origin
+  mkdir -p ./origin/validate
   git clone https://github.com/$destination_repo.git destination
 else
   git clone https://$access_token@github.com/$origin_repo.git origin
   git clone https://$access_token@github.com/$destination_repo.git destination
 fi
-
+# Enable option build later
+git clone git@github.com:bufbuild/protoc-gen-validate.git
+# installs PGV into $GOPATH/bin
+cd protoc-gen-validate && make build;
+ln -l validate ~/origin/validate
+cd ../
 mkdir -p ./destination/go
 
 # Switch branch if branch_target is available
