@@ -22,11 +22,6 @@ RUN apk update; \
 RUN go install github.com/envoyproxy/protoc-gen-validate@v0.4.0
 RUN go install github.com/golang/protobuf/protoc-gen-go@v1.3.1
 
-# Enable option build later
-RUN git clone github.com/bufbuild/protoc-gen-validate; \
-    # installs PGV into $GOPATH/bin
-    cd protoc-gen-validate && make build;
-
 ENV PATH="$PATH:$GOPATH/bin"
 
 # Copies your code file from your action repository to the filesystem path `/` of the container

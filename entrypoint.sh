@@ -2,6 +2,10 @@
 
 git config --global user.email "mrBot@myemail.com"
 git config --global user.name "Mr Bot"
+# Enable option build later
+git clone git@github.com:bufbuild/protoc-gen-validate.git; \
+# installs PGV into $GOPATH/bin
+cd protoc-gen-validate && make build;
 
 origin_repo=$1
 destination_repo=$2
