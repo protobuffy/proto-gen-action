@@ -20,11 +20,11 @@ else
   git clone https://$access_token@github.com/$destination_repo.git ~/destination
 fi
 # Enable option build later
-git clone https://github.com/bufbuild/protoc-gen-validate.git ~/protoc-gen-validate --branch v1.0.2
-# installs PGV into $GOPATH/bin
-cd ~/protoc-gen-validate && make build;
-ln -s validate ~/origin/validate
-cd ../
+# git clone https://github.com/bufbuild/protoc-gen-validate.git ~/protoc-gen-validate --branch v1.0.2
+# # installs PGV into $GOPATH/bin
+# cd ~/protoc-gen-validate && make build;
+ln -s $GOPATH/bin/protoc-gen-validate/validate ~/origin/validate
+# cd ../
 mkdir -p ~/destination/go
 
 # Switch branch if branch_target is available
