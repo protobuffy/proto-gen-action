@@ -53,7 +53,7 @@ protoc \
   --go_out=./destination/go/ \
   --go_opt=paths=source_relative \
   --validate_out="lang=go:../generated" \
-  ~/origin/**/*.proto
+  ./origin/**/*.proto
 
 cd ~/origin
 commit_hash=`git rev-parse HEAD`
