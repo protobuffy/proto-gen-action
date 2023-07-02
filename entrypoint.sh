@@ -30,7 +30,7 @@ mkdir -p ~/destination/go
 # Switch branch if branch_target is available
 if [ ! -z "$branch_target" ]; then
   echo "Checkout branch $branch_target"
-  cd origin
+  cd ~/origin
   git checkout $branch_target
   cd ~/destination
   git fetch origin $branch_target
