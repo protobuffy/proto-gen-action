@@ -19,7 +19,7 @@ else
   git clone https://$access_token@github.com/$destination_repo.git destination
 fi
 
-mkdir ./destination/go
+mkdir -p ./destination/go
 
 # Switch branch if branch_target is available
 if [ ! -z "$branch_target" ]; then

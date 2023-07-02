@@ -1,18 +1,26 @@
 # Container image that runs your code
-FROM alpine:3.15
+# alpine 3.10 lock protobuf to 3.6
+FROM alpine:3.10
 
-COPY --from=golang:1.16.7-alpine /usr/local/go/ /usr/local/go/
+# ARG GOLANG_VERSION
 
+COPY --from=golang:1.19.10-alpine /usr/local/go/ /usr/local/go/
+ARG PROTOBUF_VERSION=3.6.1-r1
 ENV PATH="/usr/local/go/bin:${PATH}"
 ENV GOPATH="/opt/go/"
 
 RUN apk update; \
   apk add git openssh; \
-  # need to versoin lock this
-  apk add "protobuf~=3.18.1-r1";
+  # need to versoin lock this or use arg
+  # 3.6.1-r1
+  apk add "protobuf~=${PROTOBUF_VERSION}";
 
-RUN go get -u google.golang.org/protobuf/cmd/protoc-gen-go@v1.28
-RUN go get -u google.golang.org/grpc/cmd/protoc-gen-go-grpc@v1.2
+# RUN go get -u google.golang.org/protobuf/cmd/protoc-gen-go@v1.28
+# RUN go get -u google.golang.org/grpc/cmd/protoc-gen-go-grpc@v1.2.0
+
+# Support older proto gen thats deprecated
+RUN go install github.com/envoyproxy/protoc-gen-validate@v0.4.0
+RUN go install github.com/golang/protobuf/protoc-gen-go@v1.3.1
 
 ENV PATH="$PATH:$GOPATH/bin"
 
